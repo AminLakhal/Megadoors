@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="de" dir="ltr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maßgefertigte Einbautüren | Ihr Handwerksprofi</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <style>
+        /* Use Inter as the default font */
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        /* Style for the slider transitions */
+        
+        .slide {
+            transition: opacity 1s ease-in-out;
+        }
+        /* Styles for Right-to-Left (RTL) layout for Arabic */
+        
+        html[dir="rtl"] {
+            /* For some elements, you might need specific RTL adjustments */
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- =========== HEADER =========== -->
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Logo -->
+            <div class="text-2xl font-bold text-gray-900" id="logo">Ihr Logo</div>
+
+            <!-- Navigation Links -->
+            <div class="hidden md:flex space-x-8">
+                <a href="#about" class="text-gray-600 hover:text-blue-600 transition duration-300" data-lang="nav_about">Über Mich</a>
+                <a href="#contact" class="text-gray-600 hover:text-blue-600 transition duration-300" data-lang="nav_contact">Kontakt</a>
+            </div>
+
+            <!-- Language Switcher -->
+            <div class="flex items-center space-x-4">
+                <button onclick="changeLanguage('de')" class="lang-btn active:ring-2 ring-blue-500 rounded px-2 py-1 text-sm font-semibold">DE</button>
+                <button onclick="changeLanguage('fr')" class="lang-btn active:ring-2 ring-blue-500 rounded px-2 py-1 text-sm font-semibold">FR</button>
+                <button onclick="changeLanguage('ar')" class="lang-btn active:ring-2 ring-blue-500 rounded px-2 py-1 text-sm font-semibold">AR</button>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <!-- =========== HERO SLIDER =========== -->
+        <section id="home" class="relative w-full h-[60vh] md:h-[80vh] overflow-hidden bg-gray-900">
+            <!-- Slide Placeholders -->
+            <div id="slider" class="relative w-full h-full">
+                <!-- Slide 1 -->
+                <div class="slide absolute w-full h-full bg-slate-800 flex items-center justify-center text-white text-center p-8 opacity-100">
+                    <div class="max-w-3xl">
+                        <h1 class="text-3xl md:text-5xl font-bold mb-4" data-lang="slide1_title">Maßgefertigte Einbautüren – Eleganz und Sicherheit für Ihr Zuhause.</h1>
+                        <a href="#contact" class="mt-4 inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition duration-300" data-lang="slide_cta">Jetzt Termin vereinbaren</a>
+                    </div>
+                </div>
+                <!-- Slide 2 -->
+                <div class="slide absolute w-full h-full bg-gray-700 flex items-center justify-center text-white text-center p-8 opacity-0">
+                    <div class="max-w-3xl">
+                        <h1 class="text-3xl md:text-5xl font-bold mb-4" data-lang="slide2_title">Präzision und Handwerkskunst – Türen, die Generationen überdauern.</h1>
+                        <a href="#contact" class="mt-4 inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition duration-300" data-lang="slide_cta">Jetzt Termin vereinbaren</a>
+                    </div>
+                </div>
+                <!-- Slide 3 -->
+                <div class="slide absolute w-full h-full bg-stone-800 flex items-center justify-center text-white text-center p-8 opacity-0">
+                    <div class="max-w-3xl">
+                        <h1 class="text-3xl md:text-5xl font-bold mb-4" data-lang="slide3_title">Individuelles Design nach Ihren Wünschen – Gestalten Sie Ihre Traumtür.</h1>
+                        <a href="#contact" class="mt-4 inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition duration-300" data-lang="slide_cta">Jetzt Termin vereinbaren</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========== ÜBER MICH =========== -->
+        <section id="about" class="py-16 md:py-24 bg-white">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4" data-lang="about_title">Qualität aus Meisterhand</h2>
+                <p class="max-w-3xl mx-auto text-gray-600 mb-8" data-lang="about_text">
+                    Mit über 15 Jahren Erfahrung im Tischlerhandwerk stehe ich für höchste Präzision und Leidenschaft. Jede Tür ist ein Unikat, das ich persönlich nach Ihren Vorstellungen entwerfe, fertige und montiere. Mein Qualitätsversprechen: Ich verwende ausschließlich
+                    erstklassige Materialien, garantiere eine sorgfältige Verarbeitung und absolute Termintreue. Ihre Zufriedenheit ist mein Antrieb.
+                </p>
+                <a href="#contact" class="bg-gray-800 hover:bg-gray-900 text-white font-bold py-3 px-8 rounded-lg transition duration-300" data-lang="about_cta">Unverbindliches Angebot anfordern</a>
+            </div>
+        </section>
+
+        <!-- =========== KONTAKTFORMULAR & KALENDER =========== -->
+        <section id="contact" class="py-16 md:py-24 bg-gray-100">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900" data-lang="contact_title">Kontaktieren Sie mich für ein kostenloses Beratungsgespräch</h2>
+                    <p class="mt-4 text-gray-600" data-lang="contact_intro">Füllen Sie das Formular aus oder wählen Sie direkt einen passenden Termin. Ich melde mich umgehend.</p>
+                </div>
+
+                <div class="max-w-6xl mx-auto md:grid md:grid-cols-2 md:gap-16">
+                    <!-- Form -->
+                    <!-- WICHTIG: Damit das Formular E-Mails versendet, benötigen Sie einen Backend-Dienst wie Formspree.io, Netlify Forms oder ein eigenes PHP-Skript. -->
+                    <!-- Ersetzen Sie "YOUR_EMAIL_SERVICE_URL" mit der URL Ihres Dienstes. -->
+                    <form action="https://formspree.io/f/your_form_id" method="POST" class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700" data-lang="form_name_label">Ihr Name</label>
+                            <input type="text" id="name" name="name" required class="mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700" data-lang="form_email_label">Ihre E-Mail</label>
+                            <input type="email" id="email" name="email" required class="mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label for="phone" class="block text-sm font-medium text-gray-700" data-lang="form_phone_label">Ihre Telefonnummer (optional)</label>
+                            <input type="tel" id="phone" name="phone" class="mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700" data-lang="form_message_label">Ihre Nachricht</label>
+                            <textarea id="message" name="message" rows="4" required class="mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"></textarea>
+                        </div>
+                        <div>
+                            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 text-lg" data-lang="form_submit_btn">Anfrage senden</button>
+                        </div>
+                    </form>
+
+                    <!-- Calendar Embed -->
+                    <div class="mt-12 md:mt-0">
+                        <h3 class="text-xl font-bold text-gray-800 text-center mb-4" data-lang="calendar_title">Oder buchen Sie direkt einen Termin:</h3>
+                        <!-- HINWEIS: Ersetzen Sie diesen Block durch Ihren Einbettungscode von Calendly, TidyCal oder einem ähnlichen Dienst. -->
+                        <div class="bg-white rounded-lg shadow-md p-4 min-h-[400px] flex items-center justify-center">
+                            <div class="text-center text-gray-500">
+                                <p data-lang="calendar_placeholder">Ihr interaktiver Kalender wird hier angezeigt.</p>
+                                <p class="text-sm mt-2">(z.B. Calendly Embed)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- =========== FOOTER =========== -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2024 <span id="footer-logo">Ihr Name/Firmenname</span>. <span data-lang="footer_rights">Alle Rechte vorbehalten.</span></p>
+            <div class="mt-4 space-x-4">
+                <a href="#" class="hover:text-blue-400" data-lang="footer_imprint">Impressum</a>
+                <a href="#" class="hover:text-blue-400" data-lang="footer_privacy">Datenschutz</a>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        // --- Language Data ---
+        const translations = {
+            de: {
+                nav_about: "Über Mich",
+                nav_contact: "Kontakt",
+                slide1_title: "Maßgefertigte Einbautüren – Eleganz und Sicherheit für Ihr Zuhause.",
+                slide2_title: "Präzision und Handwerkskunst – Türen, die Generationen überdauern.",
+                slide3_title: "Individuelles Design nach Ihren Wünschen – Gestalten Sie Ihre Traumtür.",
+                slide_cta: "Jetzt Termin vereinbaren",
+                about_title: "Qualität aus Meisterhand",
+                about_text: "Mit über 15 Jahren Erfahrung im Tischlerhandwerk stehe ich für höchste Präzision und Leidenschaft. Jede Tür ist ein Unikat, das ich persönlich nach Ihren Vorstellungen entwerfe, fertige und montiere. Mein Qualitätsversprechen: Ich verwende ausschließlich erstklassige Materialien, garantiere eine sorgfältige Verarbeitung und absolute Termintreue. Ihre Zufriedenheit ist mein Antrieb.",
+                about_cta: "Unverbindliches Angebot anfordern",
+                contact_title: "Kontaktieren Sie mich für ein kostenloses Beratungsgespräch",
+                contact_intro: "Füllen Sie das Formular aus oder wählen Sie direkt einen passenden Termin. Ich melde mich umgehend.",
+                form_name_label: "Ihr Name",
+                form_email_label: "Ihre E-Mail",
+                form_phone_label: "Ihre Telefonnummer (optional)",
+                form_message_label: "Ihre Nachricht",
+                form_submit_btn: "Anfrage senden",
+                calendar_title: "Oder buchen Sie direkt einen Termin:",
+                calendar_placeholder: "Ihr interaktiver Kalender wird hier angezeigt.",
+                footer_rights: "Alle Rechte vorbehalten.",
+                footer_imprint: "Impressum",
+                footer_privacy: "Datenschutz"
+            },
+            fr: {
+                nav_about: "À propos de moi",
+                nav_contact: "Contact",
+                slide1_title: "Portes encastrées sur mesure – Élégance et sécurité pour votre foyer.",
+                slide2_title: "Précision et artisanat – Des portes qui durent des générations.",
+                slide3_title: "Design individuel selon vos souhaits – Créez la porte de vos rêves.",
+                slide_cta: "Prendre rendez-vous",
+                about_title: "La qualité d'un maître artisan",
+                about_text: "Avec plus de 15 ans d'expérience en menuiserie, je suis synonyme de la plus haute précision et passion. Chaque porte est une pièce unique que je conçois, fabrique et installe personnellement. Ma promesse de qualité : des matériaux de première classe, une finition soignée et un respect absolu des délais.",
+                about_cta: "Demander une offre sans engagement",
+                contact_title: "Contactez-moi pour un entretien de conseil gratuit",
+                contact_intro: "Remplissez le formulaire ou choisissez directement une date. Je vous recontacterai.",
+                form_name_label: "Votre nom",
+                form_email_label: "Votre e-mail",
+                form_phone_label: "Votre téléphone (optionnel)",
+                form_message_label: "Votre message",
+                form_submit_btn: "Envoyer la demande",
+                calendar_title: "Ou réservez directement un rendez-vous :",
+                calendar_placeholder: "Votre calendrier interactif s'affichera ici.",
+                footer_rights: "Tous droits réservés.",
+                footer_imprint: "Mentions légales",
+                footer_privacy: "Confidentialité"
+            },
+            ar: {
+                nav_about: "من أنا",
+                nav_contact: "اتصل بنا",
+                slide1_title: "أبواب مدمجة مصممة خصيصًا - أناقة وأمان لمنزلك.",
+                slide2_title: "دقة وحرفية - أبواب تدوم لأجيال.",
+                slide3_title: "تصميم فردي حسب رغباتك - صمم باب أحلامك.",
+                slide_cta: "احجز موعدًا الآن",
+                about_title: "جودة من يد محترف",
+                about_text: "بخبرة تزيد عن 15 عامًا في النجارة، أضمن لكم الدقة الشديدة والشغف في العمل. كل باب هو قطعة فريدة أصممها وأصنعها وأركبها شخصيًا حسب رؤيتكم. وعدي بالجودة: أستخدم فقط مواد من الدرجة الأولى، وأضمن صنعة متقنة، والتزامًا تامًا بالمواعيد. رضاكم هو دافعي.",
+                about_cta: "اطلب عرض سعر غير ملزم",
+                contact_title: "اتصل بي للحصول على استشارة مجانية",
+                contact_intro: "املأ النموذج أو اختر مباشرة موعدًا مناسبًا. سأتصل بك في أقرب وقت ممكن.",
+                form_name_label: "اسمك",
+                form_email_label: "بريدك الالكتروني",
+                form_phone_label: "رقم هاتفك (اختياري)",
+                form_message_label: "رسالتك",
+                form_submit_btn: "إرسال الطلب",
+                calendar_title: "أو احجز موعدًا مباشرة:",
+                calendar_placeholder: "سيتم عرض التقويم التفاعلي الخاص بك هنا.",
+                footer_rights: "كل الحقوق محفوظة.",
+                footer_imprint: "بيانات النشر",
+                footer_privacy: "حماية البيانات"
+            }
+        };
+
+        // --- Language Switcher Logic ---
+        function changeLanguage(lang) {
+            // Set HTML lang and dir attributes
+            document.documentElement.lang = lang;
+            document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+            // Translate all elements with data-lang attribute
+            document.querySelectorAll('[data-lang]').forEach(el => {
+                const key = el.getAttribute('data-lang');
+                if (translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+
+            // Update active state on buttons
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('bg-blue-600', 'text-white');
+                if (btn.innerText.toLowerCase() === lang) {
+                    btn.classList.add('bg-blue-600', 'text-white');
+                }
+            });
+        }
+
+        // Initialize with default language
+        document.addEventListener('DOMContentLoaded', () => {
+            changeLanguage('de');
+        });
+
+
+        // --- Slider Logic ---
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('#slider .slide');
+        const slideCount = slides.length;
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.style.opacity = i === index ? '1' : '0';
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slideCount;
+            showSlide(currentSlide);
+        }
+
+        // Change slide every 5 seconds
+        setInterval(nextSlide, 5000);
+    </script>
+
+</body>
+
+</html>
