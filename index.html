@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <!-- Wichtigster Meta-Tag für Responsive Design -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Maßgefertigte Einbautüren | Ihr Handwerksprofi</title>
 
@@ -15,7 +16,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
     <!-- EmailJS SDK -->
-    <!-- Dieses Skript ermöglicht den E-Mail-Versand direkt aus dem Browser, ohne einen eigenen Server. -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
     <!-- Custom CSS -->
@@ -28,7 +28,6 @@
         .slide {
             transition: opacity 1s ease-in-out;
         }
-        /* Kalender-Styling für ausgewählte und heutige Tage */
         
         .calendar-day.selected {
             background-color: #2563eb;
@@ -48,7 +47,6 @@
             /* bg-blue-100 */
             border-radius: 50%;
         }
-        /* Styling für die Erfolgs-/Fehlermeldung (Toast) */
         
         #toast-notification {
             transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
@@ -60,13 +58,10 @@
 
     <!-- =========== HEADER =========== -->
     <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
-        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="text-2xl font-bold text-gray-900" id="logo">Ihr Logo</div>
-            <div class="hidden md:flex space-x-8">
-                <a href="#about" class="text-gray-600 hover:text-blue-600 transition duration-300" data-lang="nav_about">Über Mich</a>
-                <a href="#contact" class="text-gray-600 hover:text-blue-600 transition duration-300" data-lang="nav_contact">Kontakt</a>
-            </div>
-            <div class="flex items-center space-x-4">
+        <!-- Responsive Padding: px-4 auf kleinen Screens, px-6 auf größeren -->
+        <nav class="container mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
+            <div class="text-xl sm:text-2xl font-bold text-gray-900" id="logo">MEGADOORS</div>
+            <div class="flex items-center space-x-2 sm:space-x-4">
                 <button onclick="changeLanguage('de')" class="lang-btn active:ring-2 ring-blue-500 rounded px-2 py-1 text-sm font-semibold">DE</button>
                 <button onclick="changeLanguage('fr')" class="lang-btn active:ring-2 ring-blue-500 rounded px-2 py-1 text-sm font-semibold">FR</button>
                 <button onclick="changeLanguage('ar')" class="lang-btn active:ring-2 ring-blue-500 rounded px-2 py-1 text-sm font-semibold">AR</button>
@@ -76,27 +71,40 @@
 
     <main>
         <!-- =========== HERO SLIDER =========== -->
-        <section id="home" class="relative w-full h-[60vh] md:h-[80vh] overflow-hidden bg-gray-900">
+        <section id="home" class="relative w-full h-[70vh] md:h-[80vh] overflow-hidden bg-gray-900">
             <div id="slider" class="relative w-full h-full">
                 <!-- Slide 1 -->
-                <div class="slide absolute w-full h-full bg-slate-800 flex items-center justify-center text-white text-center p-8 opacity-100">
-                    <div class="max-w-3xl">
-                        <h1 class="text-3xl md:text-5xl font-bold mb-4" data-lang="slide1_title">Maßgefertigte Einbautüren – Eleganz und Sicherheit für Ihr Zuhause.</h1>
-                        <a href="#contact" class="mt-4 inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition duration-300" data-lang="slide_cta">Jetzt Termin vereinbaren</a>
+                <div class="slide absolute w-full h-full opacity-100">
+                    <img src="Assets/K001_Duz_Yuzey_Beyaz.jpg" alt="Moderne Einbautür in einem eleganten Flur" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/60"></div>
+                    <div class="absolute inset-0 flex items-center justify-center text-white text-center p-4 sm:p-8">
+                        <div class="max-w-3xl">
+                            <!-- Responsive Schriftgröße -->
+                            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4" data-lang="slide1_title">Maßgefertigte Einbautüren – Eleganz und Sicherheit für Ihr Zuhause.</h1>
+                            <a href="#contact" class="mt-4 inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 sm:px-8 rounded-lg transition duration-300" data-lang="slide_cta">Jetzt Termin vereinbaren</a>
+                        </div>
                     </div>
                 </div>
                 <!-- Slide 2 -->
-                <div class="slide absolute w-full h-full bg-gray-700 flex items-center justify-center text-white text-center p-8 opacity-0">
-                    <div class="max-w-3xl">
-                        <h1 class="text-3xl md:text-5xl font-bold mb-4" data-lang="slide2_title">Präzision und Handwerkskunst – Türen, die Generationen überdauern.</h1>
-                        <a href="#contact" class="mt-4 inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition duration-300" data-lang="slide_cta">Jetzt Termin vereinbaren</a>
+                <div class="slide absolute w-full h-full opacity-0">
+                    <img src="Assets/artella-ahsap-ic-kapi-modelleri-olimpia-1-0.webp" alt="Detailaufnahme einer handgefertigten Holztür" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/60"></div>
+                    <div class="absolute inset-0 flex items-center justify-center text-white text-center p-4 sm:p-8">
+                        <div class="max-w-3xl">
+                            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4" data-lang="slide2_title">Präzision und Handwerkskunst – Türen, die Generationen überdauern.</h1>
+                            <a href="#contact" class="mt-4 inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 sm:px-8 rounded-lg transition duration-300" data-lang="slide_cta">Jetzt Termin vereinbaren</a>
+                        </div>
                     </div>
                 </div>
                 <!-- Slide 3 -->
-                <div class="slide absolute w-full h-full bg-stone-800 flex items-center justify-center text-white text-center p-8 opacity-0">
-                    <div class="max-w-3xl">
-                        <h1 class="text-3xl md:text-5xl font-bold mb-4" data-lang="slide3_title">Individuelles Design nach Ihren Wünschen – Gestalten Sie Ihre Traumtür.</h1>
-                        <a href="#contact" class="mt-4 inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition duration-300" data-lang="slide_cta">Jetzt Termin vereinbaren</a>
+                <div class="slide absolute w-full h-full opacity-0">
+                    <img src="Assets/K008_Avustralya_Ceviz.jpg" alt="Individuell gestaltete Tür in einem modernen Wohnraum" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/60"></div>
+                    <div class="absolute inset-0 flex items-center justify-center text-white text-center p-4 sm:p-8">
+                        <div class="max-w-3xl">
+                            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-4" data-lang="slide3_title">Individuelles Design nach Ihren Wünschen – Gestalten Sie Ihre Traumtür.</h1>
+                            <a href="#contact" class="mt-4 inline-block bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 sm:px-8 rounded-lg transition duration-300" data-lang="slide_cta">Jetzt Termin vereinbaren</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -104,8 +112,8 @@
 
         <!-- =========== ÜBER MICH =========== -->
         <section id="about" class="py-16 md:py-24 bg-white">
-            <div class="container mx-auto px-6 text-center">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4" data-lang="about_title">Qualität aus Meisterhand</h2>
+            <div class="container mx-auto px-4 sm:px-6 text-center">
+                <h2 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-4" data-lang="about_title">Qualität aus Meisterhand</h2>
                 <p class="max-w-3xl mx-auto text-gray-600 mb-8" data-lang="about_text">
                     Mit über 15 Jahren Erfahrung im Tischlerhandwerk stehe ich für höchste Präzision und Leidenschaft. Jede Tür ist ein Unikat, das ich persönlich nach Ihren Vorstellungen entwerfe, fertige und montiere. Mein Qualitätsversprechen: Ich verwende ausschließlich
                     erstklassige Materialien, garantiere eine sorgfältige Verarbeitung und absolute Termintreue. Ihre Zufriedenheit ist mein Antrieb.
@@ -114,20 +122,60 @@
             </div>
         </section>
 
+        <!-- =========== PRODUKTE =========== -->
+        <section id="products" class="py-16 md:py-24 bg-gray-50">
+            <div class="container mx-auto px-4 sm:px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900" data-lang="products_title">Unsere Türenmodelle</h2>
+                    <p class="mt-4 text-gray-600 max-w-2xl mx-auto" data-lang="products_intro">Entdecken Sie eine Auswahl unserer maßgefertigten Türen. Jedes Modell kann individuell an Ihre Wünsche angepasst werden.</p>
+                </div>
+
+                <!-- Responsive Grid: 1 Spalte auf Mobile, 2 auf Tablets, 3 auf Desktops -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                    <!-- Produkt 1 -->
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                        <!-- Angepasste Bildhöhe (h-96) und Platzhaltergröße (720x960) -->
+                        <img src="Assets/Modern.jpg" alt="Platzhalterbild für Türmodell Klassik" class="w-full h-96 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-800 mb-2" data-lang="product1_name">Modell "Klassik"</h3>
+                            <p class="text-gray-600" data-lang="product1_desc">Zeitlose Eleganz, gefertigt aus massivem Eichenholz. Perfekt für einen traditionellen und wertigen Eingangsbereich.</p>
+                        </div>
+                    </div>
+                    <!-- Produkt 2 -->
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                        <!-- Angepasste Bildhöhe (h-96) und Platzhaltergröße (720x960) -->
+                        <img src="Assets/489289856_1219834509872739_8404007551498838039_n.jpg" alt="Platzhalterbild für Türmodell Modern" class="w-full h-96 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-800 mb-2" data-lang="product2_name">Modell "Modern"</h3>
+                            <p class="text-gray-600" data-lang="product2_desc">Klare Linien und eine minimalistische Ästhetik. Ideal für moderne Architektur und ein stilvolles Zuhause.</p>
+                        </div>
+                    </div>
+                    <!-- Produkt 3 -->
+                    <div class="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition-transform duration-300">
+                        <!-- Angepasste Bildhöhe (h-96) und Platzhaltergröße (720x960) -->
+                        <img src="Assets/487855160_1211049520751238_4400322359878013052_n.jpg" alt="Platzhalterbild für Türmodell Landhaus" class="w-full h-96 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold text-gray-800 mb-2" data-lang="product3_name">Modell "Landhaus"</h3>
+                            <p class="text-gray-600" data-lang="product3_desc">Rustikaler Charme und gemütliche Ausstrahlung. Bringt Wärme und Natürlichkeit in Ihr Heim.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- =========== KONTAKTFORMULAR & KALENDER =========== -->
         <section id="contact" class="py-16 md:py-24 bg-gray-100">
-            <div class="container mx-auto px-6">
+            <div class="container mx-auto px-4 sm:px-6">
                 <div class="text-center mb-12">
-                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900" data-lang="contact_title">Kontaktieren Sie mich für ein kostenloses Beratungsgespräch</h2>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-gray-900" data-lang="contact_title">Kontaktieren Sie mich für ein kostenloses Beratungsgespräch</h2>
                     <p class="mt-4 text-gray-600" data-lang="contact_intro">Füllen Sie das Formular aus, wählen Sie einen Wunschtermin und ich melde mich bei Ihnen.</p>
                 </div>
 
+                <!-- Responsive Grid: Formular und Kalender stapeln auf Mobile -->
                 <div class="max-w-6xl mx-auto md:grid md:grid-cols-2 md:gap-16 items-start">
                     <!-- Formular -->
                     <form id="contact-form" class="space-y-6">
-                        <!-- Verstecktes Feld für den ausgewählten Termin -->
                         <input type="hidden" id="appointment_date" name="appointment_date">
-
                         <div>
                             <label for="name" class="block text-sm font-medium text-gray-700" data-lang="form_name_label">Ihr Name</label>
                             <input type="text" id="name" name="name" required class="mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
@@ -151,7 +199,7 @@
                         </div>
                     </form>
 
-                    <!-- Kalender -->
+                    <!-- Kalender (Margin-Top nur auf Mobile, wenn er unter das Formular rutscht) -->
                     <div class="mt-12 md:mt-0 bg-white rounded-lg shadow-md p-6">
                         <h3 class="text-xl font-bold text-gray-800 mb-4 text-center" data-lang="calendar_title">Wunschtermin auswählen</h3>
                         <div id="calendar-container">
@@ -164,9 +212,7 @@
                                     <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
                                 </button>
                             </div>
-                            <div id="calendar-grid" class="grid grid-cols-7 gap-1 text-center">
-                                <!-- Wochentage werden hier per JS eingefügt -->
-                            </div>
+                            <div id="calendar-grid" class="grid grid-cols-7 gap-1 text-center"></div>
                         </div>
                         <p class="text-gray-500 text-sm mt-4 text-center" data-lang="calendar_info">Dies ist ein Wunschtermin. Ich werde ihn schnellstmöglich bestätigen.</p>
                     </div>
@@ -177,7 +223,7 @@
 
     <!-- =========== FOOTER =========== -->
     <footer class="bg-gray-800 text-white py-8">
-        <div class="container mx-auto px-6 text-center">
+        <div class="container mx-auto px-4 sm:px-6 text-center">
             <p>&copy; 2024 <span id="footer-logo">Ihr Name/Firmenname</span>. <span data-lang="footer_rights">Alle Rechte vorbehalten.</span></p>
             <div class="mt-4 space-x-4">
                 <a href="#" class="hover:text-blue-400" data-lang="footer_imprint">Impressum</a>
@@ -192,11 +238,8 @@
     </div>
 
     <script>
-        // --- Language Data & Translations ---
         const translations = {
             de: {
-                nav_about: "Über Mich",
-                nav_contact: "Kontakt",
                 slide1_title: "Maßgefertigte Einbautüren – Eleganz und Sicherheit für Ihr Zuhause.",
                 slide2_title: "Präzision und Handwerkskunst – Türen, die Generationen überdauern.",
                 slide3_title: "Individuelles Design nach Ihren Wünschen – Gestalten Sie Ihre Traumtür.",
@@ -204,6 +247,14 @@
                 about_title: "Qualität aus Meisterhand",
                 about_text: "Mit über 15 Jahren Erfahrung im Tischlerhandwerk stehe ich für höchste Präzision und Leidenschaft. Jede Tür ist ein Unikat, das ich persönlich nach Ihren Vorstellungen entwerfe, fertige und montiere. Mein Qualitätsversprechen: Ich verwende ausschließlich erstklassige Materialien, garantiere eine sorgfältige Verarbeitung und absolute Termintreue. Ihre Zufriedenheit ist mein Antrieb.",
                 about_cta: "Unverbindliches Angebot anfordern",
+                products_title: "Unsere Türenmodelle",
+                products_intro: "Entdecken Sie eine Auswahl unserer maßgefertigten Türen. Jedes Modell kann individuell an Ihre Wünsche angepasst werden.",
+                product1_name: "Modell 'Klassik'",
+                product1_desc: "Zeitlose Eleganz, gefertigt aus massivem Eichenholz. Perfekt für einen traditionellen und wertigen Eingangsbereich.",
+                product2_name: "Modell 'Modern'",
+                product2_desc: "Klare Linien und eine minimalistische Ästhetik. Ideal für moderne Architektur und ein stilvolles Zuhause.",
+                product3_name: "Modell 'Landhaus'",
+                product3_desc: "Rustikaler Charme und gemütliche Ausstrahlung. Bringt Wärme und Natürlichkeit in Ihr Heim.",
                 contact_title: "Kontaktieren Sie mich für ein kostenloses Beratungsgespräch",
                 contact_intro: "Füllen Sie das Formular aus, wählen Sie einen Wunschtermin und ich melde mich bei Ihnen.",
                 form_name_label: "Ihr Name",
@@ -223,8 +274,6 @@
                 footer_privacy: "Datenschutz"
             },
             fr: {
-                nav_about: "À propos de moi",
-                nav_contact: "Contact",
                 slide1_title: "Portes encastrées sur mesure – Élégance et sécurité pour votre foyer.",
                 slide2_title: "Précision et artisanat – Des portes qui durent des générations.",
                 slide3_title: "Design individuel selon vos souhaits – Créez la porte de vos rêves.",
@@ -232,6 +281,14 @@
                 about_title: "La qualité d'un maître artisan",
                 about_text: "Avec plus de 15 ans d'expérience en menuiserie, je suis synonyme de la plus haute précision et passion. Chaque porte est une pièce unique que je conçois, fabrique et installe personnellement. Ma promesse de qualité : des matériaux de première classe, une finition soignée et un respect absolu des délais.",
                 about_cta: "Demander une offre sans engagement",
+                products_title: "Nos modèles de portes",
+                products_intro: "Découvrez une sélection de nos portes sur mesure. Chaque modèle peut être adapté individuellement à vos souhaits.",
+                product1_name: "Modèle 'Classique'",
+                product1_desc: "Élégance intemporelle, en chêne massif. Parfait pour une entrée traditionnelle et de grande valeur.",
+                product2_name: "Modèle 'Moderne'",
+                product2_desc: "Lignes épurées et esthétique minimaliste. Idéal pour une architecture moderne et une maison élégante.",
+                product3_name: "Modèle 'Maison de campagne'",
+                product3_desc: "Charme rustique et atmosphère chaleureuse. Apporte chaleur et naturel à votre intérieur.",
                 contact_title: "Contactez-moi pour un entretien de conseil gratuit",
                 contact_intro: "Remplissez le formulaire, choisissez une date souhaitée et je vous contacterai.",
                 form_name_label: "Votre nom",
@@ -251,8 +308,6 @@
                 footer_privacy: "Confidentialité"
             },
             ar: {
-                nav_about: "من أنا",
-                nav_contact: "اتصل بنا",
                 slide1_title: "أبواب مدمجة مصممة خصيصًا - أناقة وأمان لمنزلك.",
                 slide2_title: "دقة وحرفية - أبواب تدوم لأجيال.",
                 slide3_title: "تصميم فردي حسب رغباتك - صمم باب أحلامك.",
@@ -260,6 +315,14 @@
                 about_title: "جودة من يد محترف",
                 about_text: "بخبرة تزيد عن 15 عامًا في النجارة، أضمن لكم الدقة الشديدة والشغف في العمل. كل باب هو قطعة فريدة أصممها وأصنعها وأركبها شخصيًا حسب رؤيتكم. وعدي بالجودة: أستخدم فقط مواد من الدرجة الأولى، وأضمن صنعة متقنة، والتزامًا تامًا بالمواعيد. رضاكم هو دافعي.",
                 about_cta: "اطلب عرض سعر غير ملزم",
+                products_title: "نماذج أبوابنا",
+                products_intro: "اكتشف مجموعة مختارة من أبوابنا المصممة خصيصًا. يمكن تكييف كل طراز بشكل فردي حسب رغباتك.",
+                product1_name: "نموذج 'كلاسيك'",
+                product1_desc: "أناقة خالدة مصنوعة من خشب البلوط الصلب. مثالي لمدخل تقليدي وقيم.",
+                product2_name: "نموذج 'مودرن'",
+                product2_desc: "خطوط نظيفة وجمالية بسيطة. مثالي للعمارة الحديثة والمنزل الأنيق.",
+                product3_name: "نموذج 'ريفي'",
+                product3_desc: "سحر ريفي وأجواء دافئة. يضفي الدفء والطبيعة على منزلك.",
                 contact_title: "اتصل بي للحصول على استشارة مجانية",
                 contact_intro: "املأ النموذج، اختر تاريخًا مفضلاً، وسأتصل بك.",
                 form_name_label: "اسمك",
@@ -289,7 +352,7 @@
 
             document.querySelectorAll('[data-lang]').forEach(el => {
                 const key = el.getAttribute('data-lang');
-                if (translations[lang][key]) {
+                if (translations[lang] && translations[lang][key]) {
                     el.textContent = translations[lang][key];
                 }
             });
@@ -301,7 +364,6 @@
                 }
             });
 
-            // Kalender neu zeichnen, um Wochentage und Monatsnamen zu übersetzen
             renderCalendar(currentDate);
         }
 
@@ -339,7 +401,6 @@
             const firstDayOfMonth = new Date(year, month, 1).getDay();
             const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-            // Wochentage anzeigen
             translations[currentLanguage].weekdays.forEach(day => {
                 const dayEl = document.createElement('div');
                 dayEl.className = 'font-bold text-gray-500 text-sm';
@@ -347,12 +408,10 @@
                 calendarGrid.appendChild(dayEl);
             });
 
-            // Leere Tage am Anfang
             for (let i = 0; i < firstDayOfMonth; i++) {
                 calendarGrid.appendChild(document.createElement('div'));
             }
 
-            // Tage des Monats
             const today = new Date();
             for (let i = 1; i <= daysInMonth; i++) {
                 const dayEl = document.createElement('div');
@@ -361,31 +420,23 @@
                 dayEl.textContent = i;
                 dayEl.className = 'calendar-day cursor-pointer p-2';
 
-                // Vergangene Tage deaktivieren
                 if (dayDate < today && dayDate.toDateString() !== today.toDateString()) {
                     dayEl.classList.add('text-gray-300', 'cursor-not-allowed', 'disabled');
                 } else {
                     dayEl.addEventListener('click', () => {
-                        // Alte Auswahl entfernen
                         document.querySelectorAll('.calendar-day.selected').forEach(d => d.classList.remove('selected'));
-
-                        // Neue Auswahl setzen
                         dayEl.classList.add('selected');
                         selectedDate = dayDate;
-                        appointmentDateInput.value = selectedDate.toLocaleDateString('de-DE'); // Format: DD.MM.YYYY
+                        appointmentDateInput.value = selectedDate.toLocaleDateString('de-DE');
                     });
                 }
 
-                // Heutigen Tag markieren
                 if (dayDate.toDateString() === today.toDateString()) {
                     dayEl.classList.add('today');
                 }
-
-                // Ausgewählten Tag markieren
                 if (selectedDate && dayDate.toDateString() === selectedDate.toDateString()) {
                     dayEl.classList.add('selected');
                 }
-
                 calendarGrid.appendChild(dayEl);
             }
         }
@@ -404,28 +455,21 @@
         const contactForm = document.getElementById('contact-form');
         const submitBtn = document.getElementById('submit-btn');
 
-        // WICHTIG: Ersetzen Sie diese Werte mit Ihren eigenen Daten von EmailJS.
-        // 1. Registrieren Sie sich kostenlos auf https://www.emailjs.com/
-        // 2. Verbinden Sie Ihren E-Mail-Dienst (z.B. Gmail).
-        // 3. Erstellen Sie ein E-Mail-Template.
-        // 4. Holen Sie sich Service ID, Template ID und Public Key aus Ihrem Account.
-        const EMAILJS_SERVICE_ID = 'service_5cseoq2'; // Ihre Service ID hier
-        const EMAILJS_TEMPLATE_ID = 'template_59c5yqd'; // Ihre Template ID hier
-        const EMAILJS_PUBLIC_KEY = 'QmUQwLI1vUuxZK0BY'; // Ihr Public Key hier
+        const EMAILJS_SERVICE_ID = 'service_5cseoq2';
+        const EMAILJS_TEMPLATE_ID = 'template_59c5yqd';
+        const EMAILJS_PUBLIC_KEY = 'QmUQwLI1vUuxZK0BY';
 
         contactForm.addEventListener('submit', function(event) {
             event.preventDefault();
 
-            // Überprüfen, ob die Platzhalter ersetzt wurden
             if (EMAILJS_SERVICE_ID === 'YOUR_SERVICE_ID' || EMAILJS_TEMPLATE_ID === 'YOUR_TEMPLATE_ID') {
                 showToast("Konfiguration unvollständig. Bitte ersetzen Sie die EmailJS-Platzhalter im Code.", 'error');
-                console.error("EmailJS ist nicht konfiguriert. Bitte fügen Sie Ihre Service ID, Template ID und Public Key in der JavaScript-Sektion hinzu.");
                 return;
             }
 
             const originalBtnText = submitBtn.textContent;
             submitBtn.disabled = true;
-            submitBtn.textContent = translations[currentLanguage].form_sending;
+            submitBtn.innerHTML = `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> ${translations[currentLanguage].form_sending}`;
 
             const templateParams = {
                 name: document.getElementById('name').value,
@@ -437,13 +481,11 @@
 
             emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams, EMAILJS_PUBLIC_KEY)
                 .then(function(response) {
-                    console.log('SUCCESS!', response.status, response.text);
                     showToast(translations[currentLanguage].form_success, 'success');
-                    contactForm.reset(); // Formular zurücksetzen
-                    selectedDate = null; // Auswahl im Kalender zurücksetzen
+                    contactForm.reset();
+                    selectedDate = null;
                     renderCalendar(new Date());
                 }, function(error) {
-                    console.log('FAILED...', error);
                     showToast(translations[currentLanguage].form_error, 'error');
                 })
                 .finally(() => {
@@ -452,13 +494,12 @@
                 });
         });
 
-        // --- Toast Notification Logic ---
         function showToast(message, type = 'success') {
             const toast = document.getElementById('toast-notification');
             const toastMessage = document.getElementById('toast-message');
 
             toastMessage.textContent = message;
-            toast.className = 'fixed bottom-5 right-5 p-4 rounded-lg text-white translate-x-[200%] opacity-0'; // Reset classes
+            toast.className = 'fixed bottom-5 right-5 p-4 rounded-lg text-white translate-x-[200%] opacity-0';
 
             if (type === 'success') {
                 toast.classList.add('bg-green-500');
@@ -466,22 +507,17 @@
                 toast.classList.add('bg-red-500');
             }
 
-            // Show toast
             toast.classList.remove('translate-x-[200%]', 'opacity-0');
             toast.classList.add('translate-x-0', 'opacity-100');
 
-            // Hide after 5 seconds
             setTimeout(() => {
                 toast.classList.remove('translate-x-0', 'opacity-100');
                 toast.classList.add('translate-x-[200%]', 'opacity-0');
             }, 5000);
         }
 
-
-        // Initial Load
         document.addEventListener('DOMContentLoaded', () => {
-            changeLanguage('de'); // Standardsprache setzen
-            // Der Kalender wird durch changeLanguage() initial gerendert
+            changeLanguage('de');
         });
     </script>
 
