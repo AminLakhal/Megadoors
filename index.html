@@ -14,23 +14,44 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
+    <!-- EmailJS SDK -->
+    <!-- Dieses Skript ermöglicht den E-Mail-Versand direkt aus dem Browser, ohne einen eigenen Server. -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
     <!-- Custom CSS -->
     <style>
-        /* Use Inter as the default font */
-        
         body {
             font-family: 'Inter', sans-serif;
             scroll-behavior: smooth;
         }
-        /* Style for the slider transitions */
         
         .slide {
             transition: opacity 1s ease-in-out;
         }
-        /* Styles for Right-to-Left (RTL) layout for Arabic */
+        /* Kalender-Styling für ausgewählte und heutige Tage */
         
-        html[dir="rtl"] {
-            /* For some elements, you might need specific RTL adjustments */
+        .calendar-day.selected {
+            background-color: #2563eb;
+            /* bg-blue-600 */
+            color: white;
+            border-radius: 50%;
+        }
+        
+        .calendar-day.today {
+            font-weight: bold;
+            border: 2px solid #2563eb;
+            border-radius: 50%;
+        }
+        
+        .calendar-day:not(.disabled):hover {
+            background-color: #dbeafe;
+            /* bg-blue-100 */
+            border-radius: 50%;
+        }
+        /* Styling für die Erfolgs-/Fehlermeldung (Toast) */
+        
+        #toast-notification {
+            transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
         }
     </style>
 </head>
@@ -40,16 +61,11 @@
     <!-- =========== HEADER =========== -->
     <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <!-- Logo -->
             <div class="text-2xl font-bold text-gray-900" id="logo">Ihr Logo</div>
-
-            <!-- Navigation Links -->
             <div class="hidden md:flex space-x-8">
                 <a href="#about" class="text-gray-600 hover:text-blue-600 transition duration-300" data-lang="nav_about">Über Mich</a>
                 <a href="#contact" class="text-gray-600 hover:text-blue-600 transition duration-300" data-lang="nav_contact">Kontakt</a>
             </div>
-
-            <!-- Language Switcher -->
             <div class="flex items-center space-x-4">
                 <button onclick="changeLanguage('de')" class="lang-btn active:ring-2 ring-blue-500 rounded px-2 py-1 text-sm font-semibold">DE</button>
                 <button onclick="changeLanguage('fr')" class="lang-btn active:ring-2 ring-blue-500 rounded px-2 py-1 text-sm font-semibold">FR</button>
@@ -61,7 +77,6 @@
     <main>
         <!-- =========== HERO SLIDER =========== -->
         <section id="home" class="relative w-full h-[60vh] md:h-[80vh] overflow-hidden bg-gray-900">
-            <!-- Slide Placeholders -->
             <div id="slider" class="relative w-full h-full">
                 <!-- Slide 1 -->
                 <div class="slide absolute w-full h-full bg-slate-800 flex items-center justify-center text-white text-center p-8 opacity-100">
@@ -104,14 +119,15 @@
             <div class="container mx-auto px-6">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl md:text-4xl font-bold text-gray-900" data-lang="contact_title">Kontaktieren Sie mich für ein kostenloses Beratungsgespräch</h2>
-                    <p class="mt-4 text-gray-600" data-lang="contact_intro">Füllen Sie das Formular aus oder wählen Sie direkt einen passenden Termin. Ich melde mich umgehend.</p>
+                    <p class="mt-4 text-gray-600" data-lang="contact_intro">Füllen Sie das Formular aus, wählen Sie einen Wunschtermin und ich melde mich bei Ihnen.</p>
                 </div>
 
-                <div class="max-w-6xl mx-auto md:grid md:grid-cols-2 md:gap-16">
-                    <!-- Form -->
-                    <!-- WICHTIG: Damit das Formular E-Mails versendet, benötigen Sie einen Backend-Dienst wie Formspree.io, Netlify Forms oder ein eigenes PHP-Skript. -->
-                    <!-- Ersetzen Sie "YOUR_EMAIL_SERVICE_URL" mit der URL Ihres Dienstes. -->
-                    <form action="https://formspree.io/f/your_form_id" method="POST" class="space-y-6">
+                <div class="max-w-6xl mx-auto md:grid md:grid-cols-2 md:gap-16 items-start">
+                    <!-- Formular -->
+                    <form id="contact-form" class="space-y-6">
+                        <!-- Verstecktes Feld für den ausgewählten Termin -->
+                        <input type="hidden" id="appointment_date" name="appointment_date">
+
                         <div>
                             <label for="name" class="block text-sm font-medium text-gray-700" data-lang="form_name_label">Ihr Name</label>
                             <input type="text" id="name" name="name" required class="mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
@@ -129,20 +145,30 @@
                             <textarea id="message" name="message" rows="4" required class="mt-1 block w-full px-4 py-3 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"></textarea>
                         </div>
                         <div>
-                            <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 text-lg" data-lang="form_submit_btn">Anfrage senden</button>
+                            <button type="submit" id="submit-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition duration-300 text-lg flex items-center justify-center" data-lang="form_submit_btn">
+                                Anfrage senden
+                            </button>
                         </div>
                     </form>
 
-                    <!-- Calendar Embed -->
-                    <div class="mt-12 md:mt-0">
-                        <h3 class="text-xl font-bold text-gray-800 text-center mb-4" data-lang="calendar_title">Oder buchen Sie direkt einen Termin:</h3>
-                        <!-- HINWEIS: Ersetzen Sie diesen Block durch Ihren Einbettungscode von Calendly, TidyCal oder einem ähnlichen Dienst. -->
-                        <div class="bg-white rounded-lg shadow-md p-4 min-h-[400px] flex items-center justify-center">
-                            <div class="text-center text-gray-500">
-                                <p data-lang="calendar_placeholder">Ihr interaktiver Kalender wird hier angezeigt.</p>
-                                <p class="text-sm mt-2">(z.B. Calendly Embed)</p>
+                    <!-- Kalender -->
+                    <div class="mt-12 md:mt-0 bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-bold text-gray-800 mb-4 text-center" data-lang="calendar_title">Wunschtermin auswählen</h3>
+                        <div id="calendar-container">
+                            <div class="flex justify-between items-center mb-4">
+                                <button id="prev-month" class="p-2 rounded-full hover:bg-gray-200">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                                </button>
+                                <div id="month-year" class="text-lg font-semibold"></div>
+                                <button id="next-month" class="p-2 rounded-full hover:bg-gray-200">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                </button>
+                            </div>
+                            <div id="calendar-grid" class="grid grid-cols-7 gap-1 text-center">
+                                <!-- Wochentage werden hier per JS eingefügt -->
                             </div>
                         </div>
+                        <p class="text-gray-500 text-sm mt-4 text-center" data-lang="calendar_info">Dies ist ein Wunschtermin. Ich werde ihn schnellstmöglich bestätigen.</p>
                     </div>
                 </div>
             </div>
@@ -160,9 +186,13 @@
         </div>
     </footer>
 
+    <!-- Benachrichtigungs-Container (Toast) -->
+    <div id="toast-notification" class="fixed bottom-5 right-5 p-4 rounded-lg text-white translate-x-[200%] opacity-0">
+        <p id="toast-message"></p>
+    </div>
 
     <script>
-        // --- Language Data ---
+        // --- Language Data & Translations ---
         const translations = {
             de: {
                 nav_about: "Über Mich",
@@ -175,14 +205,19 @@
                 about_text: "Mit über 15 Jahren Erfahrung im Tischlerhandwerk stehe ich für höchste Präzision und Leidenschaft. Jede Tür ist ein Unikat, das ich persönlich nach Ihren Vorstellungen entwerfe, fertige und montiere. Mein Qualitätsversprechen: Ich verwende ausschließlich erstklassige Materialien, garantiere eine sorgfältige Verarbeitung und absolute Termintreue. Ihre Zufriedenheit ist mein Antrieb.",
                 about_cta: "Unverbindliches Angebot anfordern",
                 contact_title: "Kontaktieren Sie mich für ein kostenloses Beratungsgespräch",
-                contact_intro: "Füllen Sie das Formular aus oder wählen Sie direkt einen passenden Termin. Ich melde mich umgehend.",
+                contact_intro: "Füllen Sie das Formular aus, wählen Sie einen Wunschtermin und ich melde mich bei Ihnen.",
                 form_name_label: "Ihr Name",
                 form_email_label: "Ihre E-Mail",
                 form_phone_label: "Ihre Telefonnummer (optional)",
                 form_message_label: "Ihre Nachricht",
                 form_submit_btn: "Anfrage senden",
-                calendar_title: "Oder buchen Sie direkt einen Termin:",
-                calendar_placeholder: "Ihr interaktiver Kalender wird hier angezeigt.",
+                form_sending: "Sende...",
+                form_success: "Vielen Dank! Ihre Anfrage wurde gesendet.",
+                form_error: "Fehler! Bitte versuchen Sie es später erneut.",
+                calendar_title: "Wunschtermin auswählen",
+                calendar_info: "Dies ist ein Wunschtermin. Ich werde ihn schnellstmöglich bestätigen.",
+                weekdays: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"],
+                months: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
                 footer_rights: "Alle Rechte vorbehalten.",
                 footer_imprint: "Impressum",
                 footer_privacy: "Datenschutz"
@@ -198,14 +233,19 @@
                 about_text: "Avec plus de 15 ans d'expérience en menuiserie, je suis synonyme de la plus haute précision et passion. Chaque porte est une pièce unique que je conçois, fabrique et installe personnellement. Ma promesse de qualité : des matériaux de première classe, une finition soignée et un respect absolu des délais.",
                 about_cta: "Demander une offre sans engagement",
                 contact_title: "Contactez-moi pour un entretien de conseil gratuit",
-                contact_intro: "Remplissez le formulaire ou choisissez directement une date. Je vous recontacterai.",
+                contact_intro: "Remplissez le formulaire, choisissez une date souhaitée et je vous contacterai.",
                 form_name_label: "Votre nom",
                 form_email_label: "Votre e-mail",
                 form_phone_label: "Votre téléphone (optionnel)",
                 form_message_label: "Votre message",
                 form_submit_btn: "Envoyer la demande",
-                calendar_title: "Ou réservez directement un rendez-vous :",
-                calendar_placeholder: "Votre calendrier interactif s'affichera ici.",
+                form_sending: "Envoi...",
+                form_success: "Merci ! Votre demande a été envoyée.",
+                form_error: "Erreur ! Veuillez réessayer plus tard.",
+                calendar_title: "Choisir une date souhaitée",
+                calendar_info: "Ceci est une date souhaitée. Je la confirmerai dès que possible.",
+                weekdays: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
+                months: ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"],
                 footer_rights: "Tous droits réservés.",
                 footer_imprint: "Mentions légales",
                 footer_privacy: "Confidentialité"
@@ -221,27 +261,32 @@
                 about_text: "بخبرة تزيد عن 15 عامًا في النجارة، أضمن لكم الدقة الشديدة والشغف في العمل. كل باب هو قطعة فريدة أصممها وأصنعها وأركبها شخصيًا حسب رؤيتكم. وعدي بالجودة: أستخدم فقط مواد من الدرجة الأولى، وأضمن صنعة متقنة، والتزامًا تامًا بالمواعيد. رضاكم هو دافعي.",
                 about_cta: "اطلب عرض سعر غير ملزم",
                 contact_title: "اتصل بي للحصول على استشارة مجانية",
-                contact_intro: "املأ النموذج أو اختر مباشرة موعدًا مناسبًا. سأتصل بك في أقرب وقت ممكن.",
+                contact_intro: "املأ النموذج، اختر تاريخًا مفضلاً، وسأتصل بك.",
                 form_name_label: "اسمك",
                 form_email_label: "بريدك الالكتروني",
                 form_phone_label: "رقم هاتفك (اختياري)",
                 form_message_label: "رسالتك",
                 form_submit_btn: "إرسال الطلب",
-                calendar_title: "أو احجز موعدًا مباشرة:",
-                calendar_placeholder: "سيتم عرض التقويم التفاعلي الخاص بك هنا.",
+                form_sending: "جار الإرسال...",
+                form_success: "شكرًا لك! تم إرسال طلبك بنجاح.",
+                form_error: "خطأ! يرجى المحاولة مرة أخرى لاحقًا.",
+                calendar_title: "اختر موعدًا مفضلاً",
+                calendar_info: "هذا تاريخ مقترح. سأقوم بتأكيده في أقرب وقت ممكن.",
+                weekdays: ["الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"],
+                months: ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"],
                 footer_rights: "كل الحقوق محفوظة.",
                 footer_imprint: "بيانات النشر",
                 footer_privacy: "حماية البيانات"
             }
         };
 
-        // --- Language Switcher Logic ---
+        let currentLanguage = 'de';
+
         function changeLanguage(lang) {
-            // Set HTML lang and dir attributes
+            currentLanguage = lang;
             document.documentElement.lang = lang;
             document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
 
-            // Translate all elements with data-lang attribute
             document.querySelectorAll('[data-lang]').forEach(el => {
                 const key = el.getAttribute('data-lang');
                 if (translations[lang][key]) {
@@ -249,20 +294,16 @@
                 }
             });
 
-            // Update active state on buttons
             document.querySelectorAll('.lang-btn').forEach(btn => {
                 btn.classList.remove('bg-blue-600', 'text-white');
                 if (btn.innerText.toLowerCase() === lang) {
                     btn.classList.add('bg-blue-600', 'text-white');
                 }
             });
+
+            // Kalender neu zeichnen, um Wochentage und Monatsnamen zu übersetzen
+            renderCalendar(currentDate);
         }
-
-        // Initialize with default language
-        document.addEventListener('DOMContentLoaded', () => {
-            changeLanguage('de');
-        });
-
 
         // --- Slider Logic ---
         let currentSlide = 0;
@@ -279,9 +320,169 @@
             currentSlide = (currentSlide + 1) % slideCount;
             showSlide(currentSlide);
         }
-
-        // Change slide every 5 seconds
         setInterval(nextSlide, 5000);
+
+        // --- Calendar Logic ---
+        const calendarGrid = document.getElementById('calendar-grid');
+        const monthYearEl = document.getElementById('month-year');
+        const appointmentDateInput = document.getElementById('appointment_date');
+        let currentDate = new Date();
+        let selectedDate = null;
+
+        function renderCalendar(date) {
+            calendarGrid.innerHTML = '';
+            const month = date.getMonth();
+            const year = date.getFullYear();
+
+            monthYearEl.textContent = `${translations[currentLanguage].months[month]} ${year}`;
+
+            const firstDayOfMonth = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+            // Wochentage anzeigen
+            translations[currentLanguage].weekdays.forEach(day => {
+                const dayEl = document.createElement('div');
+                dayEl.className = 'font-bold text-gray-500 text-sm';
+                dayEl.textContent = day;
+                calendarGrid.appendChild(dayEl);
+            });
+
+            // Leere Tage am Anfang
+            for (let i = 0; i < firstDayOfMonth; i++) {
+                calendarGrid.appendChild(document.createElement('div'));
+            }
+
+            // Tage des Monats
+            const today = new Date();
+            for (let i = 1; i <= daysInMonth; i++) {
+                const dayEl = document.createElement('div');
+                const dayDate = new Date(year, month, i);
+
+                dayEl.textContent = i;
+                dayEl.className = 'calendar-day cursor-pointer p-2';
+
+                // Vergangene Tage deaktivieren
+                if (dayDate < today && dayDate.toDateString() !== today.toDateString()) {
+                    dayEl.classList.add('text-gray-300', 'cursor-not-allowed', 'disabled');
+                } else {
+                    dayEl.addEventListener('click', () => {
+                        // Alte Auswahl entfernen
+                        document.querySelectorAll('.calendar-day.selected').forEach(d => d.classList.remove('selected'));
+
+                        // Neue Auswahl setzen
+                        dayEl.classList.add('selected');
+                        selectedDate = dayDate;
+                        appointmentDateInput.value = selectedDate.toLocaleDateString('de-DE'); // Format: DD.MM.YYYY
+                    });
+                }
+
+                // Heutigen Tag markieren
+                if (dayDate.toDateString() === today.toDateString()) {
+                    dayEl.classList.add('today');
+                }
+
+                // Ausgewählten Tag markieren
+                if (selectedDate && dayDate.toDateString() === selectedDate.toDateString()) {
+                    dayEl.classList.add('selected');
+                }
+
+                calendarGrid.appendChild(dayEl);
+            }
+        }
+
+        document.getElementById('prev-month').addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() - 1);
+            renderCalendar(currentDate);
+        });
+
+        document.getElementById('next-month').addEventListener('click', () => {
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            renderCalendar(currentDate);
+        });
+
+        // --- Email Sending Logic ---
+        const contactForm = document.getElementById('contact-form');
+        const submitBtn = document.getElementById('submit-btn');
+
+        // WICHTIG: Ersetzen Sie diese Werte mit Ihren eigenen Daten von EmailJS.
+        // 1. Registrieren Sie sich kostenlos auf https://www.emailjs.com/
+        // 2. Verbinden Sie Ihren E-Mail-Dienst (z.B. Gmail).
+        // 3. Erstellen Sie ein E-Mail-Template.
+        // 4. Holen Sie sich Service ID, Template ID und Public Key aus Ihrem Account.
+        const EMAILJS_SERVICE_ID = 'service_5cseoq2'; // Ihre Service ID hier
+        const EMAILJS_TEMPLATE_ID = 'template_59c5yqd'; // Ihre Template ID hier
+        const EMAILJS_PUBLIC_KEY = 'QmUQwLI1vUuxZK0BY'; // Ihr Public Key hier
+
+        contactForm.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Überprüfen, ob die Platzhalter ersetzt wurden
+            if (EMAILJS_SERVICE_ID === 'YOUR_SERVICE_ID' || EMAILJS_TEMPLATE_ID === 'YOUR_TEMPLATE_ID') {
+                showToast("Konfiguration unvollständig. Bitte ersetzen Sie die EmailJS-Platzhalter im Code.", 'error');
+                console.error("EmailJS ist nicht konfiguriert. Bitte fügen Sie Ihre Service ID, Template ID und Public Key in der JavaScript-Sektion hinzu.");
+                return;
+            }
+
+            const originalBtnText = submitBtn.textContent;
+            submitBtn.disabled = true;
+            submitBtn.textContent = translations[currentLanguage].form_sending;
+
+            const templateParams = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                message: document.getElementById('message').value,
+                appointment_date: appointmentDateInput.value || 'Kein Termin ausgewählt'
+            };
+
+            emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams, EMAILJS_PUBLIC_KEY)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text);
+                    showToast(translations[currentLanguage].form_success, 'success');
+                    contactForm.reset(); // Formular zurücksetzen
+                    selectedDate = null; // Auswahl im Kalender zurücksetzen
+                    renderCalendar(new Date());
+                }, function(error) {
+                    console.log('FAILED...', error);
+                    showToast(translations[currentLanguage].form_error, 'error');
+                })
+                .finally(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = originalBtnText;
+                });
+        });
+
+        // --- Toast Notification Logic ---
+        function showToast(message, type = 'success') {
+            const toast = document.getElementById('toast-notification');
+            const toastMessage = document.getElementById('toast-message');
+
+            toastMessage.textContent = message;
+            toast.className = 'fixed bottom-5 right-5 p-4 rounded-lg text-white translate-x-[200%] opacity-0'; // Reset classes
+
+            if (type === 'success') {
+                toast.classList.add('bg-green-500');
+            } else {
+                toast.classList.add('bg-red-500');
+            }
+
+            // Show toast
+            toast.classList.remove('translate-x-[200%]', 'opacity-0');
+            toast.classList.add('translate-x-0', 'opacity-100');
+
+            // Hide after 5 seconds
+            setTimeout(() => {
+                toast.classList.remove('translate-x-0', 'opacity-100');
+                toast.classList.add('translate-x-[200%]', 'opacity-0');
+            }, 5000);
+        }
+
+
+        // Initial Load
+        document.addEventListener('DOMContentLoaded', () => {
+            changeLanguage('de'); // Standardsprache setzen
+            // Der Kalender wird durch changeLanguage() initial gerendert
+        });
     </script>
 
 </body>
